@@ -14,11 +14,13 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (size == MAX_SIZE) {
+        if (size < MAX_SIZE) {
+            storage[size] = r;
+            size++;
+        } else {
             System.out.println("Хранилище переполнено.");
         }
-        storage[size] = r;
-        size++;
+
     }
 
     Resume get(String uuid) {
