@@ -2,10 +2,8 @@
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    //Выделил общий размер хранилищая в отдельную переменную maxSize. Предполагая что в будущем хранилище может
-    // увеличиваться при добавлении новых записей
-    private int maxSize = 10000;
-    private Resume[] storage = new Resume[maxSize];
+    private int MAX_SIZE = 10_000;
+    private Resume[] storage = new Resume[MAX_SIZE];
     private int size = 0;
 
     void clear() {
@@ -16,21 +14,11 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (size == maxSize) {
-            storage = createStorageWithNewMaxSize();
+        if (size == MAX_SIZE) {
+            System.out.println("Хранилище переполнено.");
         }
         storage[size] = r;
         size++;
-    }
-
-    // создание нового массива при переполнении старого
-    private Resume[] createStorageWithNewMaxSize() {
-        maxSize += (maxSize / 2);
-        Resume[] newStorage = new Resume[maxSize];
-        for (int i = 0; i < size; i++) {
-            newStorage[i] = storage[i];
-        }
-        return newStorage;
     }
 
     Resume get(String uuid) {
@@ -44,7 +32,8 @@ public class ArrayStorage {
     void delete(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].uuid)) {
-                storage[i] = null;
+                if (i == MAX_SIZE - 1)
+                    storage[i] = null;
                 for (int j = i + 1; j < size; j++) {
                     storage[j - 1] = storage[j];
                 }
@@ -58,11 +47,11 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] tempArr = new Resume[size];
+        Resume[] resumes = new Resume[size];
         for (int i = 0; i < size; i++) {
-            tempArr[i] = storage[i];
+            resumes[i] = storage[i];
         }
-        return tempArr;
+        return resumes;
     }
 
     int size() {
