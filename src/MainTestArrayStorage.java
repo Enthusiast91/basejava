@@ -1,5 +1,8 @@
+import com.enthusiast91.webapp.model.Resume;
+import com.enthusiast91.webapp.storage.ArrayStorage;
+
 /**
- * Test for your ArrayStorage implementation
+ * Test for your com.enthusiast91.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

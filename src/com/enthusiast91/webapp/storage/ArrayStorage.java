@@ -1,3 +1,5 @@
+package com.enthusiast91.webapp.storage;
+
 /**
  * Array based storage for Resumes
  */
