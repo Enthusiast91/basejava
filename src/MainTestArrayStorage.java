@@ -20,6 +20,7 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r3);
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
+        System.out.println("Index of r3: " + ARRAY_STORAGE.indexOf(r3));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         printAll();
@@ -36,9 +37,6 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
-            System.out.print(r + " ");
-        }
-        System.out.println();
+        System.out.println(ARRAY_STORAGE);
     }
 }
