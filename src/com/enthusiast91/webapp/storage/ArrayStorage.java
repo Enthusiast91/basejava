@@ -1,5 +1,7 @@
 package com.enthusiast91.webapp.storage;
 
+import com.enthusiast91.webapp.model.Resume;
+
 /**
  * Array based storage for Resumes
  */
@@ -8,34 +10,33 @@ public class ArrayStorage {
     private Resume[] storage = new Resume[MAX_SIZE];
     private int size = 0;
 
-    void clear() {
+    public void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         size = 0;
     }
 
-    void save(Resume r) {
+    public void save(Resume r) {
         if (size < MAX_SIZE) {
             storage[size] = r;
             size++;
         } else {
             System.out.println("Хранилище переполнено.");
         }
-
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].uuid))
+            if (uuid.equals(storage[i].getUuid()))
                 return storage[i];
         }
         return null;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].uuid)) {
+            if (uuid.equals(storage[i].getUuid())) {
                 if (i == MAX_SIZE - 1)
                     storage[i] = null;
                 for (int j = i + 1; j < size; j++) {
@@ -50,7 +51,7 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         Resume[] resumes = new Resume[size];
         for (int i = 0; i < size; i++) {
             resumes[i] = storage[i];
@@ -58,7 +59,7 @@ public class ArrayStorage {
         return resumes;
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 }
