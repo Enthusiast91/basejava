@@ -39,8 +39,7 @@ public class ArrayStorage {
      * Delete all resumes from this storage
      */
     public void save(Resume resume) {
-        int index = indexOf(resume.getUuid());
-        if (index != -1) {
+        if (indexOf(resume.getUuid()) != -1) {
             System.out.println("Impossible to add this resume. Resume with UUID \"" + resume.getUuid() + "\" already exist.");
         } else if (size == MAX_SIZE) {
             System.out.println("Storage overflow");
