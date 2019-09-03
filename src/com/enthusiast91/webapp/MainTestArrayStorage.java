@@ -7,14 +7,14 @@ import com.enthusiast91.webapp.storage.ArrayStorage;
  * Test for your com.enthusiast91.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume();
+        final Resume r1 = new Resume();
         r1.setUuid("uuid1");
-        Resume r2 = new Resume();
+        final Resume r2 = new Resume();
         r2.setUuid("uuid2");
-        Resume r3 = new Resume();
+        final Resume r3 = new Resume();
         r3.setUuid("uuid3");
 
         printAll();
@@ -30,7 +30,7 @@ public class MainTestArrayStorage {
         printAll();
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy") + "\n");
 
-        Resume r3t = new Resume();
+        final Resume r3t = new Resume();
         r3t.setUuid(r3.getUuid());
         ARRAY_STORAGE.update(r3t);
         System.out.println("Update r3: " + ARRAY_STORAGE.get(r3t.getUuid()));
