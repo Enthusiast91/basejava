@@ -37,15 +37,14 @@ public class ArrayStorage {
      * Delete all resumes from this storage
      */
     public void save(Resume resume) {
-        if (indexOf(resume.getUuid()) == -1) {
-            if (size < MAX_SIZE) {
-                storage[size] = resume;
-                size++;
-            } else {
-                System.out.println("Storage is full");
-            }
-        } else {
+        int index = indexOf(resume.getUuid());
+        if (index == -1) {
             System.out.println("Impossible to add this resume. Resume with UUID \"" + resume.getUuid() + "\" already exist.");
+        } else if (size == MAX_SIZE) {
+            System.out.println("Storage overflow");
+        } else {
+            storage[size] = resume;
+            size++;
         }
     }
 
