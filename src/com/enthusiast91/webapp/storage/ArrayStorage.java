@@ -17,11 +17,11 @@ public class ArrayStorage {
      */
     public void update(Resume resume) {
         int index = indexOf(resume.getUuid());
-        if (index > -1) {
-            storage[index] = resume;
-        } else {
+        if (index == -1) {
             System.out.println("Impossible to update this resume. Resume with UUID \""
-                               + resume.getUuid() + "\" doesn't exist.");
+                    + resume.getUuid() + "\" doesn't exist.");
+        } else {
+            storage[index] = resume;
         }
     }
 
@@ -29,8 +29,10 @@ public class ArrayStorage {
      * Delete all resumes from this storage
      */
     public void clear() {
-        Arrays.fill(storage, 0, size - 1, null);
-        size = 0;
+        if (size > 0) {
+            Arrays.fill(storage, 0, size - 1, null);
+            size = 0;
+        }
     }
 
     /**
@@ -38,7 +40,7 @@ public class ArrayStorage {
      */
     public void save(Resume resume) {
         int index = indexOf(resume.getUuid());
-        if (index == -1) {
+        if (index != -1) {
             System.out.println("Impossible to add this resume. Resume with UUID \"" + resume.getUuid() + "\" already exist.");
         } else if (size == MAX_SIZE) {
             System.out.println("Storage overflow");
@@ -53,11 +55,11 @@ public class ArrayStorage {
      */
     public Resume get(String uuid) {
         int index = indexOf(uuid);
-        if (index > -1) {
-            return storage[index];
+        if (index == -1) {
+            System.out.println("Impossible to return resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
+            return null;
         }
-        System.out.println("Impossible to return resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
-        return null;
+        return storage[index];
     }
 
     /**
@@ -65,12 +67,12 @@ public class ArrayStorage {
      */
     public void delete(String uuid) {
         int index = indexOf(uuid);
-        if (index > -1) {
+        if (index == -1) {
+            System.out.println("Impossible to delete resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
+        } else {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
-        } else {
-            System.out.println("Impossible to delete resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
         }
     }
 
