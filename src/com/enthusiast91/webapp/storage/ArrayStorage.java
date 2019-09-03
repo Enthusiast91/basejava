@@ -2,6 +2,8 @@ package com.enthusiast91.webapp.storage;
 
 import com.enthusiast91.webapp.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
@@ -11,37 +13,10 @@ public class ArrayStorage {
     private int size = 0;
 
     /**
-     * @return the index of occurrence of the specified Resume, or -1 if there is no such occurrence
-     */
-    public int indexOf(Resume resume) {
-        return indexOf(resume.getUuid());
-    }
-
-    private int indexOf(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * @return true if this storage contains this resume, false otherwise
-     */
-    public boolean contains(Resume resume) {
-        return contains(resume.getUuid());
-    }
-
-    private boolean contains(String uuid) {
-        return (indexOf(uuid) > -1);
-    }
-
-    /**
      * Update resume in this storage
      */
     public void update(Resume resume) {
-        int index = indexOf(resume);
+        int index = indexOf(resume.getUuid());
         if (index > -1) {
             storage[index] = resume;
         } else {
@@ -54,25 +29,23 @@ public class ArrayStorage {
      * Delete all resumes from this storage
      */
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size - 1, null);
         size = 0;
     }
 
     /**
      * Delete all resumes from this storage
      */
-    public void save(Resume r) {
-        if (!contains(r)) {
+    public void save(Resume resume) {
+        if (indexOf(resume.getUuid()) == -1) {
             if (size < MAX_SIZE) {
-                storage[size] = r;
+                storage[size] = resume;
                 size++;
             } else {
                 System.out.println("Storage is full");
             }
         } else {
-            System.out.println("Impossible to add this resume. Resume with UUID \"" + r.getUuid() + "\" already exist.");
+            System.out.println("Impossible to add this resume. Resume with UUID \"" + resume.getUuid() + "\" already exist.");
         }
     }
 
@@ -83,10 +56,9 @@ public class ArrayStorage {
         int index = indexOf(uuid);
         if (index > -1) {
             return storage[index];
-        } else {
-            System.out.println("Impossible to return resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
-            return null;
         }
+        System.out.println("Impossible to return resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
+        return null;
     }
 
     /**
@@ -95,9 +67,7 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int index = indexOf(uuid);
         if (index > -1) {
-            if (index != (size - 1)) {
-                storage[index] = storage[size - 1];
-            }
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
@@ -109,11 +79,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resumes = new Resume[size];
-        for (int i = 0; i < size; i++) {
-            resumes[i] = storage[i];
-        }
-        return resumes;
+        return Arrays.copyOf(storage, size);
     }
 
     /**
@@ -123,17 +89,15 @@ public class ArrayStorage {
         return size;
     }
 
-    @Override
-    public String toString() {
-        String s = "Storage is empty";
-        if (size > 0) {
-            Resume[] resumes = getAll();
-            s = "[" + resumes[0];
-            for (int i = 1; i < size; i++) {
-                s += ", " + resumes[i];
+    /**
+     * @return the index of occurrence of Resume of the specified uuid, or -1 if there is no such occurrence
+     */
+    private int indexOf(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
             }
-            s += "]";
         }
-        return s;
+        return -1;
     }
 }
