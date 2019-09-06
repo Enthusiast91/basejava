@@ -2,12 +2,13 @@ package com.enthusiast91.webapp;
 
 import com.enthusiast91.webapp.model.Resume;
 import com.enthusiast91.webapp.storage.ArrayStorage;
+import com.enthusiast91.webapp.storage.Storage;
 
 /**
  * Test for your com.enthusiast91.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
