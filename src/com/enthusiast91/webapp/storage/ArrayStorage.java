@@ -8,21 +8,8 @@ import com.enthusiast91.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void save(Resume resume) {
-        if (indexOf(resume.getUuid()) != -1) {
-            System.out.println("Impossible to add this resume. Resume with UUID \"" + resume.getUuid() + "\" already exist.");
-        } else if (size == STORAGE_LIMIT) {
-            System.out.println("Storage overflow");
-        } else {
-            storage[size] = resume;
-            size++;
-        }
-    }
-
-    @Override
     protected void deleteImplementation(int index) {
         storage[index] = storage[size - 1];
-        storage[size - 1] = null;
     }
 
     /**
@@ -35,5 +22,10 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
+    }
+
+    @Override
+    protected void insert(int index, Resume resume) {
+        storage[size] = resume;
     }
 }

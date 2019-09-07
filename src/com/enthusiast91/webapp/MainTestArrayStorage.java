@@ -16,35 +16,41 @@ public class MainTestArrayStorage {
         final Resume r3 = new Resume("uuid3");
         final Resume r4 = new Resume("uuid4");
 
-        printAll();
+        System.out.println("Clear");
         ARRAY_STORAGE.clear();
-
-        ARRAY_STORAGE.save(r4);
-        ARRAY_STORAGE.save(r1);
-        ARRAY_STORAGE.save(r3);
-        ARRAY_STORAGE.save(r2);
-
-        System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
-        System.out.println("Size: " + ARRAY_STORAGE.size());
-
         printAll();
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy") + "\n");
+
+        System.out.println("\nAdding items");
+        System.out.print("Add r4. "); ARRAY_STORAGE.save(r4); printAll();
+        System.out.print("Add r1. "); ARRAY_STORAGE.save(r1); printAll();
+        System.out.print("Add r3. "); ARRAY_STORAGE.save(r3); printAll();
+        System.out.print("Add r2. "); ARRAY_STORAGE.save(r2); printAll();
+        System.out.println("Storage size: " + ARRAY_STORAGE.size());
+
+        System.out.println("\nGet r1 uuid: " + ARRAY_STORAGE.get(r1.getUuid()));
+        printAll();
+
+        System.out.println();
+        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         final Resume r3t = new Resume(r3.getUuid());
+        System.out.println("\nUpdate r3");
         ARRAY_STORAGE.update(r3t);
-        System.out.println("Update r3: " + ARRAY_STORAGE.get(r3t.getUuid()));
-
         printAll();
+
+        System.out.println("\nDelete r1");
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
+
+        System.out.println("\nClear storage");
         ARRAY_STORAGE.clear();
         printAll();
 
-        System.out.println("Size: " + ARRAY_STORAGE.size());
+        System.out.println("Storage size: " + ARRAY_STORAGE.size());
     }
 
     static void printAll() {
-        System.out.print("\nGet All\n[ ");
+        System.out.print("Get All: [ ");
         for (Resume r : ARRAY_STORAGE.getAll()) {
             System.out.print(r + " ");
         }
