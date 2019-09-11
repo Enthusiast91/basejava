@@ -1,5 +1,8 @@
 package com.enthusiast91.webapp.storage;
 
+import com.enthusiast91.webapp.exception.ExistStorageException;
+import com.enthusiast91.webapp.exception.NotExistStorageException;
+import com.enthusiast91.webapp.exception.StorageException;
 import com.enthusiast91.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -22,7 +25,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = indexOf(uuid);
         if (index < 0) {
-            System.out.println("Impossible to delete resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
+            throw new NotExistStorageException("Impossible to delete resume. ", uuid);
         } else {
             fillDeletedElement(index);
             storage[size - 1] = null;
@@ -34,8 +37,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = indexOf(uuid);
         if (index < 0) {
-            System.out.println("Impossible to return resume. Resume with UUID \"" + uuid + "\" doesn't exist.");
-            return null;
+            throw new NotExistStorageException("Impossible to return resume. ", uuid);
         }
         return storage[index];
     }
@@ -54,8 +56,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = indexOf(resume.getUuid());
         if (index < 0) {
-            System.out.println("Impossible to update this resume. Resume with UUID \""
-                    + resume.getUuid() + "\" doesn't exist.");
+            throw new NotExistStorageException("Impossible to update this resume. ", resume.getUuid());
         } else {
             storage[index] = resume;
         }
@@ -65,9 +66,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = indexOf(resume.getUuid());
         if (index >= 0) {
-            System.out.println("Impossible to add this resume. Resume with UUID \"" + resume.getUuid() + "\" already exist.");
+            throw new ExistStorageException("Impossible to add this resume. ", resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
-            System.out.println("Storage overflow");
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             insertElement(index, resume);
             size++;

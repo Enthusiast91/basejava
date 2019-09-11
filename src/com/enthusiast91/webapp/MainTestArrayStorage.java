@@ -4,6 +4,8 @@ import com.enthusiast91.webapp.model.Resume;
 import com.enthusiast91.webapp.storage.SortedArrayStorage;
 import com.enthusiast91.webapp.storage.Storage;
 
+import java.util.Arrays;
+
 /**
  * Test for your com.enthusiast91.webapp.storage.ArrayStorage implementation
  */
@@ -12,9 +14,9 @@ public class MainTestArrayStorage {
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");
-        final Resume r2 = new Resume("uuid2");
+        final Resume r2 = new Resume();
         final Resume r3 = new Resume("uuid3");
-        final Resume r4 = new Resume("uuid4");
+        final Resume r4 = new Resume();
 
         System.out.println("Clear");
         ARRAY_STORAGE.clear();
@@ -50,10 +52,6 @@ public class MainTestArrayStorage {
     }
 
     static void printAll() {
-        System.out.print("Get All: [ ");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
-            System.out.print(r + " ");
-        }
-        System.out.println("]");
+        System.out.println("Get All: " + Arrays.toString(ARRAY_STORAGE.getAll()));
     }
 }
