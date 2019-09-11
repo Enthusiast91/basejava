@@ -2,23 +2,20 @@ package com.enthusiast91.webapp.storage;
 
 import com.enthusiast91.webapp.model.Resume;
 
-/**
- * Array based storage for Resumes
- */
 public interface Storage {
 
     /**
-     * Delete all resumes from this storage
+     * Delete all resumes from storage
      */
     void clear();
 
     /**
-     * Delete the resume at the specified uuid in this storage
+     * Delete the resume at the specified uuid in storage
      */
     void delete(String uuid);
 
     /**
-     * @return the resume at the specified uuid in this storage
+     * @return the resume at the specified uuid in storage
      */
     Resume get(String uuid);
 
@@ -28,17 +25,17 @@ public interface Storage {
     Resume[] getAll();
 
     /**
-     * Delete all resumes from this storage
+     * Add resume in storage
      */
     void save(Resume resume);
 
     /**
-     * @return the quantity of resumes in this storage
+     * @return the quantity of resumes in storage
      */
     int size();
 
     /**
-     * Update resume in this storage
+     * Update resume in storage
      */
     void update(Resume resume);
 }

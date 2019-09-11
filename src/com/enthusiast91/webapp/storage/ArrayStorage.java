@@ -2,13 +2,10 @@ package com.enthusiast91.webapp.storage;
 
 import com.enthusiast91.webapp.model.Resume;
 
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void deleteImplementation(int index) {
+    protected void fillDeletedElement(int index) {
         storage[index] = storage[size - 1];
     }
 
@@ -25,7 +22,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void insert(int index, Resume resume) {
+    protected void insertElement(int index, Resume resume) {
         storage[size] = resume;
     }
 }
