@@ -37,14 +37,18 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void clear() {
         storage.clear();
-        assertEquals(0, storage.size());
+        assertSize(0);
     }
 
     @Test
     public void delete() {
         storage.delete(UUID_1);
         int storageSizeAfterDelete = size - 1;
-        assertEquals(storageSizeAfterDelete, storage.size());
+        assertSize(storageSizeAfterDelete);
+
+        try { storage.get(UUID_1); }
+        catch (NotExistStorageException e) { return; }
+        fail("Resume not deleted");
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -54,8 +58,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-        Resume resultResume = storage.get(UUID_1);
-        assertEquals(RESUME_1, resultResume);
+        assertGet(RESUME_1);
+        assertGet(RESUME_2);
+        assertGet(RESUME_3);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -76,9 +81,8 @@ public abstract class AbstractArrayStorageTest {
     public void save() {
         storage.save(RESUME_4);
         int storageSizeAfterAdd = size + 1;
-        assertEquals(storageSizeAfterAdd, storage.size());
-        Resume savedResume = storage.get(UUID_4);
-        assertEquals(RESUME_4, savedResume);
+        assertSize(storageSizeAfterAdd);
+        assertGet(RESUME_4);
     }
 
     @Test(expected = ExistStorageException.class)
@@ -100,20 +104,27 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void size() {
-        assertEquals(size, storage.size());
+        assertSize(size);
     }
 
     @Test
     public void update() {
-        Resume oldResume = storage.get(UUID_1);
-        storage.update(new Resume(UUID_1));
-        Resume newResume = storage.get(UUID_1);
-        assertEquals(oldResume, newResume);
+        Resume newResume = new Resume(UUID_1);
+        storage.update(newResume);
+        assertSame(newResume, storage.get(UUID_1));
     }
 
     @Test (expected = NotExistStorageException.class)
     public void updateNotExist() {
         Resume nonExistentResume = new Resume();
         storage.update(nonExistentResume);
+    }
+
+    private void assertSize(int size) {
+        assertEquals(size, storage.size());
+    }
+
+    private void assertGet(Resume resume) {
+        assertEquals(resume, storage.get(resume.getUuid()));
     }
 }
