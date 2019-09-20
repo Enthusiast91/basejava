@@ -12,7 +12,7 @@ public abstract class AbstractStorage implements Storage  {
         if (index < 0) {
             throw new NotExistStorageException("Impossible to return resume. ", uuid);
         }
-        return get(index);
+        return take(index);
     }
 
     @Override
@@ -47,7 +47,7 @@ public abstract class AbstractStorage implements Storage  {
 
     protected abstract void add(int index, Resume resume);
 
-    protected abstract Resume get(int index);
+    protected abstract Resume take(int index);
 
     protected abstract void set(int index, Resume resume);
 

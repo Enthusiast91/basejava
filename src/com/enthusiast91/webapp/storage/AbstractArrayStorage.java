@@ -40,7 +40,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume get(int index) {
+    protected Resume take(int index) {
         return storage[index];
     }
 

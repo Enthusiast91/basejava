@@ -15,12 +15,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return (Resume[]) storage.toArray();
-    }
-
-    @Override
-    public void save(Resume resume) {
-        storage.add(resume);
+        return storage.toArray(new Resume[0]);
     }
 
     @Override
@@ -33,7 +28,7 @@ public class ListStorage extends AbstractStorage {
      */
     @Override
     protected int indexOf(String uuid) {
-        int size = size();
+        int size = storage.size();
         for (int i = 0; i < size; i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -48,7 +43,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume get(int index) {
+    protected Resume take(int index) {
         return storage.get(index);
     }
 
