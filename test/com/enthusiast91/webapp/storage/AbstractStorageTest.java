@@ -6,6 +6,10 @@ import com.enthusiast91.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
@@ -71,9 +75,10 @@ public abstract class AbstractStorageTest {
     public void getAll() {
         Resume[] resumes = storage.getAll();
         assertEquals(size, resumes.length);
-        assertEquals(RESUME_1, resumes[0]);
-        assertEquals(RESUME_2, resumes[1]);
-        assertEquals(RESUME_3, resumes[2]);
+        List<Resume> resumeList = new ArrayList<>(Arrays.asList(resumes));
+        assertTrue(resumeList.contains(RESUME_1));
+        assertTrue(resumeList.contains(RESUME_2));
+        assertTrue(resumeList.contains(RESUME_3));
     }
 
     @Test

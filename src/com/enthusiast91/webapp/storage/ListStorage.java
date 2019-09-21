@@ -43,7 +43,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume take(int index) {
+    protected Resume fetch(int index, String uuid) {
         return storage.get(index);
     }
 
@@ -53,7 +53,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void remove(int index) {
+    protected void remove(int index, String uuid) {
         storage.remove(index);
     }
 }
