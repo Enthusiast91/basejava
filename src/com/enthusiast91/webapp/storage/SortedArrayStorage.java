@@ -11,6 +11,12 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
     }
 
+    @Override
+    protected boolean resumeWithKeyExist(Object searchKey) {
+        Integer resume = (Integer) searchKey;
+        return resume >= 0;
+    }
+
     /**
      * @return index of the search key, if it is contained in the array;
      *         otherwise, <tt>(-(<i>insertion point</i>) - 1)</tt>.  The
@@ -20,7 +26,7 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
      *         elements in the array are less than the specified key.
      */
     @Override
-    protected int indexOf(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
     }
 

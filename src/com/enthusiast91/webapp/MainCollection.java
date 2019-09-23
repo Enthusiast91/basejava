@@ -19,13 +19,7 @@ public class MainCollection {
         collection.add(RESUME_3);
         System.out.println(collection.toString());
 
-        Iterator<Resume> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            Resume r = iterator.next();
-            if (Objects.equals(r.getUuid(), UUID_1)) {
-                iterator.remove();
-            }
-        }
+        collection.removeIf(r -> Objects.equals(r.getUuid(), UUID_1));
         System.out.println(collection.toString());
 
         Map<String, Resume> map = new HashMap<String, Resume>() {{
