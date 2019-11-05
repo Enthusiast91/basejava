@@ -2,6 +2,8 @@ package com.enthusiast91.webapp.storage;
 
 import com.enthusiast91.webapp.model.Resume;
 
+import java.util.List;
+
 public interface Storage {
 
     /**
@@ -22,7 +24,10 @@ public interface Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll();
+//    Resume[] getAll();
+
+//sorted by name
+    List<Resume> getAllSorted();
 
     /**
      * Add resume in storage

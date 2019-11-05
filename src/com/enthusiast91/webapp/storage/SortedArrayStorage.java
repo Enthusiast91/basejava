@@ -4,6 +4,7 @@ import com.enthusiast91.webapp.model.Resume;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage implements Storage {
 
@@ -39,5 +40,10 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
         index = -index - 1;
         System.arraycopy(storage, index, storage, index + 1, size - index);
         storage[index] = resume;
+    }
+
+    @Override
+    protected void resumesListSort(List<Resume> listResume) {
+        listResume.sort(Comparator.comparing(Resume::getFullName));
     }
 }
