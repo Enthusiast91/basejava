@@ -10,14 +10,13 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected boolean resumeWithKeyExist(Object searchKey) {
-        //if (searchKey == null || Integer.class != searchKey.getClass()) return false;
-        Integer resume = (Integer) searchKey;
-        return resume >= 0;
+    protected boolean isExist(Object searchKey) {
+        Integer index = (Integer) searchKey;
+        return index >= 0;
     }
 
     /**
-     * @return the index of occurrence of Resume of the specified uuid, or -1 if there is no such occurrence
+     * @return the index of the Resume occurrence of the specified uuid, or -1 if there is no such occurrence
      */
     @Override
     protected Integer getSearchKey(String uuid) {

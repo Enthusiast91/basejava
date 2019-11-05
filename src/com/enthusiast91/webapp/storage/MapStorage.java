@@ -23,21 +23,18 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean resumeWithKeyExist(Object searchKey) {
+    protected boolean isExist(Object searchKey) {
         String uuid = (String) searchKey;
         return storage.containsKey(uuid);
     }
 
-    /**
-     * @return +1 if Resume is present, or -1 if not
-     */
     @Override
     protected String getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected void add(Object searchKey, Resume resume) {
+    protected void doSave(Object searchKey, Resume resume) {
         storage.put(resume.getUuid(), resume);
     }
 
@@ -48,13 +45,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void set(Object searchKey, Resume resume) {
+    protected void doUpdate(Object searchKey, Resume resume) {
         storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void remove(Object searchKey) {
-        String uuid = (String) searchKey;
-        storage.remove(uuid);
+    protected void doDelete(Object searchKey) {
+        storage.remove(searchKey);
     }
 }

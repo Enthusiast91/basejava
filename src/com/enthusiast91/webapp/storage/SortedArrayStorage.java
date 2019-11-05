@@ -3,8 +3,12 @@ package com.enthusiast91.webapp.storage;
 import com.enthusiast91.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class SortedArrayStorage extends AbstractArrayStorage implements Storage {
+
+//    private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
+    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid);
 
     @Override
     protected void fillDeletedElement(int index) {
@@ -12,7 +16,7 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
     }
 
     @Override
-    protected boolean resumeWithKeyExist(Object searchKey) {
+    protected boolean isExist(Object searchKey) {
         Integer resume = (Integer) searchKey;
         return resume >= 0;
     }
@@ -27,7 +31,7 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
      */
     @Override
     protected Integer getSearchKey(String uuid) {
-        return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
+        return Arrays.binarySearch(storage, 0, size, new Resume(uuid), RESUME_COMPARATOR);
     }
 
     @Override

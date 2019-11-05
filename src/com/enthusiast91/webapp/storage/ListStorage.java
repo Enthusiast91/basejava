@@ -24,13 +24,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean resumeWithKeyExist(Object searchKey) {
-        Integer resume = (Integer) searchKey;
-        return resume >= 0;
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
     }
 
     /**
-     * @return the index of occurrence of Resume of the specified uuid, or -1 if there is no such occurrence
+     * @return the index of the Resume occurrence of the specified uuid, or null if there is no such occurrence
      */
     @Override
     protected Integer getSearchKey(String uuid) {
@@ -40,11 +39,11 @@ public class ListStorage extends AbstractStorage {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
-    protected void add(Object searchKey, Resume resume) {
+    protected void doSave(Object searchKey, Resume resume) {
         storage.add(resume);
     }
 
@@ -55,13 +54,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void set(Object searchKey, Resume resume) {
+    protected void doUpdate(Object searchKey, Resume resume) {
         Integer index = (Integer) searchKey;
         storage.set(index, resume);
     }
 
     @Override
-    protected void remove(Object searchKey) {
+    protected void doDelete(Object searchKey) {
         int index = (int) searchKey;
         storage.remove(index);
     }

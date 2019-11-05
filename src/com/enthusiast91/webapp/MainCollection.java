@@ -28,9 +28,8 @@ public class MainCollection {
             put(UUID_3, RESUME_3);
         }};
 
-        Iterator<Map.Entry<String, Resume>> entryIterator = map.entrySet().iterator();
-        while (entryIterator.hasNext()) {
-            Map.Entry entry = entryIterator.next();
+        for(Iterator<Map.Entry<String, Resume>> i = map.entrySet().iterator(); i.hasNext();) {
+            Map.Entry entry = i.next();
             System.out.print(entry.getKey() + " ");
         }
         System.out.println();
@@ -38,5 +37,7 @@ public class MainCollection {
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.print(entry.getValue() + " ");
         }
+
+        List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
     }
 }

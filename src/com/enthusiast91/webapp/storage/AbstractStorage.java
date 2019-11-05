@@ -6,53 +6,55 @@ import com.enthusiast91.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage  {
 
+    protected abstract boolean isExist(Object searchKey);
+
+    protected abstract Object getSearchKey(String uuid);
+
+    protected abstract void doSave(Object searchKey, Resume resume);
+
+    protected abstract Resume doGet(Object searchKey);
+
+    protected abstract void doUpdate(Object searchKey, Resume resume);
+
+    protected abstract void doDelete(Object searchKey);
+
     @Override
     public Resume get(String uuid) {
-        Object searchKey = getSearchKey(uuid);
-        checkAtNonExist(uuid, searchKey);
+        Object searchKey = getExistedSearchKey(uuid);
         return doGet(searchKey);
     }
 
     @Override
     public void delete(String uuid) {
-        Object searchKey = getSearchKey(uuid);
-        checkAtNonExist(uuid, searchKey);
-        remove(searchKey);
+        Object searchKey = getExistedSearchKey(uuid);
+        doDelete(searchKey);
     }
 
     @Override
     public void save(Resume resume) {
-        String uuid = resume.getUuid();
-        Object searchKey = getSearchKey(uuid);
-        if (resumeWithKeyExist(searchKey)) {
-            throw new ExistStorageException("Impossible to add this resume. ", uuid);
-        }
-        add(searchKey, resume);
+        Object searchKey = getNotExistedSearchKey(resume.getUuid());
+        doSave(searchKey, resume);
     }
 
     @Override
     public void update(Resume resume) {
-        String uuid = resume.getUuid();
-        Object searchKey = getSearchKey(uuid);
-        checkAtNonExist(uuid, searchKey);
-        set(searchKey, resume);
+        Object searchKey = getExistedSearchKey(resume.getUuid());
+        doUpdate(searchKey, resume);
     }
 
-    private void checkAtNonExist(String uuid, Object searchKey) {
-        if (!resumeWithKeyExist(searchKey)) {
+    private Object getExistedSearchKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {
             throw new NotExistStorageException("Impossible to update this resume. ", uuid);
         }
+        return searchKey;
     }
 
-    protected abstract boolean resumeWithKeyExist(Object searchKey);
-
-    protected abstract Object getSearchKey(String uuid);
-
-    protected abstract void add(Object searchKey, Resume resume);
-
-    protected abstract Resume doGet(Object searchKey);
-
-    protected abstract void set(Object searchKey, Resume resume);
-
-    protected abstract void remove(Object searchKey);
+    private Object getNotExistedSearchKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (isExist(searchKey)) {
+            throw new ExistStorageException("Impossible to add this resume. ", uuid);
+        }
+        return searchKey;
+    }
 }
