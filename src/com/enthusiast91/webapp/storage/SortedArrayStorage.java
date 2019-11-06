@@ -42,8 +42,9 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
         storage[index] = resume;
     }
 
+    /**
+     * Stub
+     */
     @Override
-    protected void resumesListSort(List<Resume> listResume) {
-        listResume.sort(Comparator.comparing(Resume::getFullName));
-    }
+    protected void resumesListSort(List<Resume> listResume) {}
 }

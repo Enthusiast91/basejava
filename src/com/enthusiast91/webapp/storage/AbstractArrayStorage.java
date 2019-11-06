@@ -66,6 +66,4 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[size - 1] = null;
         size--;
     }
-
-
 }

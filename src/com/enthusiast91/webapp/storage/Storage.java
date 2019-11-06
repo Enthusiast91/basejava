@@ -22,11 +22,8 @@ public interface Storage {
     Resume get(String uuid);
 
     /**
-     * @return array, contains only Resumes in storage (without null)
+     * @return sorted array, contains only Resumes in storage (without null)
      */
-//    Resume[] getAll();
-
-//sorted by name
     List<Resume> getAllSorted();
 
     /**

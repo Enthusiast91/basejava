@@ -8,6 +8,6 @@ import java.util.List;
 public class MapNameStorage extends MapUuidStorage {
     @Override
     protected void resumesListSort(List<Resume> listResume) {
-        listResume.sort(Comparator.comparing(Resume::getFullName));
+        listResume.sort(Comparator.comparing(r -> (r.getFullName() + r.getUuid())));
     }
 }
