@@ -25,4 +25,9 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     protected void doUpdate(Object searchKey, Resume resume) {
         storage.put(resume.getUuid(), resume);
     }
+
+    @Override
+    protected void doSave(Object searchKey, Resume resume) {
+        storage.put(resume.getUuid(), resume);
+    }
 }
