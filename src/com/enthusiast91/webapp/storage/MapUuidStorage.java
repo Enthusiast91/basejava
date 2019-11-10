@@ -2,24 +2,7 @@ package com.enthusiast91.webapp.storage;
 
 import com.enthusiast91.webapp.model.Resume;
 
-import java.util.*;
-
-public class MapUuidStorage extends AbstractStorage {
-    private final Map<String, Resume> storage = new HashMap<>();
-
-    public void clear() {
-        storage.clear();
-    }
-
-    @Override
-    protected List<Resume> getAll() {
-        return new ArrayList<>(storage.values());
-    }
-
-    @Override
-    public int size() {
-        return storage.size();
-    }
+public class MapUuidStorage extends AbstractMapStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
@@ -41,11 +24,6 @@ public class MapUuidStorage extends AbstractStorage {
     protected Resume doGet(Object searchKey) {
         String uuid = (String) searchKey;
         return storage.get(uuid);
-    }
-
-    @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
-        storage.put(resume.getUuid(), resume);
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.enthusiast91.webapp.model.Resume;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage implements Storage {
 
@@ -16,23 +15,18 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
     }
 
-    @Override
-    protected boolean isExist(Object searchKey) {
-        Integer resume = (Integer) searchKey;
-        return resume >= 0;
-    }
-
     /**
      * @return index of the search key, if it is contained in the array;
-     *         otherwise, <tt>(-(<i>insertion point</i>) - 1)</tt>.  The
-     *         <i>insertion point</i> is defined as the point at which the
-     *         key would be inserted into the array: the index of the first
-     *         element greater than the key, or <tt>a.length</tt> if all
-     *         elements in the array are less than the specified key.
+     * otherwise, <tt>(-(<i>insertion point</i>) - 1)</tt>.  The
+     * <i>insertion point</i> is defined as the point at which the
+     * key would be inserted into the array: the index of the first
+     * element greater than the key, or <tt>a.length</tt> if all
+     * elements in the array are less than the specified key.
      */
     @Override
     protected Integer getSearchKey(String uuid) {
-        return Arrays.binarySearch(storage, 0, size, new Resume(uuid), RESUME_COMPARATOR);
+        Resume searchKey = new Resume(uuid, "SomeName");
+        return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_COMPARATOR);
     }
 
     @Override
@@ -41,10 +35,4 @@ public class SortedArrayStorage extends AbstractArrayStorage implements Storage 
         System.arraycopy(storage, index, storage, index + 1, size - index);
         storage[index] = resume;
     }
-
-    /**
-     * Stub
-     */
-    @Override
-    protected void resumesListSort(List<Resume> listResume) {}
 }

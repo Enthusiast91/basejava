@@ -66,4 +66,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[size - 1] = null;
         size--;
     }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        Integer resume = (Integer) searchKey;
+        return resume >= 0;
+    }
 }

@@ -1,6 +1,5 @@
-package com.enthusiast91.webapp;
+package com.enthusiast91.webapp.storage;
 
-import com.enthusiast91.webapp.storage.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -9,7 +8,5 @@ import org.junit.runners.Suite;
         ArrayStorageTest.class,
         SortedArrayStorageTest.class,
         ListStorageTest.class,
-        MapUuidStorageTest.class,
-        MapNameStorageTest.class})
-public class AllStorageTest {
-}
+        MapUuidStorageTest.class})
+public class AllStorageTest {}

@@ -9,12 +9,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         storage[index] = storage[size - 1];
     }
 
-    @Override
-    protected boolean isExist(Object searchKey) {
-        Integer index = (Integer) searchKey;
-        return index >= 0;
-    }
-
     /**
      * @return the index of the Resume occurrence of the specified uuid, or -1 if there is no such occurrence
      */

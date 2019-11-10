@@ -4,7 +4,7 @@ import com.enthusiast91.webapp.exception.ExistStorageException;
 import com.enthusiast91.webapp.exception.NotExistStorageException;
 import com.enthusiast91.webapp.model.Resume;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractStorage implements Storage  {
@@ -50,12 +50,8 @@ public abstract class AbstractStorage implements Storage  {
     @Override
     public List<Resume> getAllSorted() {
         List<Resume> resumesList = getAll();
-        resumesListSort(resumesList);
+        Collections.sort(resumesList);
         return resumesList;
-    }
-
-    protected void resumesListSort(List<Resume> listResume) {
-        listResume.sort(Comparator.comparing(Resume::getUuid));
     }
 
     private Object getExistedSearchKey(String uuid) {

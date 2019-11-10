@@ -1,18 +1,18 @@
 package com.enthusiast91.webapp;
 
 import com.enthusiast91.webapp.model.Resume;
-import com.enthusiast91.webapp.storage.MapNameStorage;
+import com.enthusiast91.webapp.storage.MapUuidStorage;
 import com.enthusiast91.webapp.storage.Storage;
 
 /**
  * Test for your com.enthusiast91.webapp.storage.ArrayStorage implementation
  */
 public class MainTestStorage {
-    private static final Storage ARRAY_STORAGE = new MapNameStorage();
+    private static final Storage ARRAY_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
-            ARRAY_STORAGE.save(new Resume(String.format("uuid%02d", i)));
+            ARRAY_STORAGE.save(new Resume(String.format("Name_%02d", i)));
         }
 //        final Resume r1 = new Resume("uuid1");
 //        final Resume r2 = new Resume("uuid4");

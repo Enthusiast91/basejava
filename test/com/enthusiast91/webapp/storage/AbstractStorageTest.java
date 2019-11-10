@@ -3,6 +3,7 @@ package com.enthusiast91.webapp.storage;
 import com.enthusiast91.webapp.exception.ExistStorageException;
 import com.enthusiast91.webapp.exception.NotExistStorageException;
 import com.enthusiast91.webapp.model.Resume;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,10 +16,10 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Name1");
+    private static final Resume RESUME_2 = new Resume(UUID_2, "Name2");
+    private static final Resume RESUME_3 = new Resume(UUID_3, "Name3");
+    private static final Resume RESUME_4 = new Resume(UUID_4, "Name4");
     protected static int size;
     protected Storage storage;
 
@@ -32,7 +33,7 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
-        size = 3;
+        size = storage.size();
     }
 
     @Test
@@ -70,12 +71,9 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
-        List<Resume> resumeList = storage.getAllSorted();
-        assertEquals(size, resumeList.size());
-        assertTrue(resumeList.contains(RESUME_1));
-        assertTrue(resumeList.contains(RESUME_2));
-        assertTrue(resumeList.contains(RESUME_3));
+    public void getAllSorted() {
+        List<Resume> listActual = storage.getAllSorted();
+        assertThat(listActual, CoreMatchers.hasItems(RESUME_1, RESUME_2, RESUME_3));
     }
 
     @Test
@@ -98,14 +96,14 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume(UUID_1, "Name");
         storage.update(newResume);
         assertSame(newResume, storage.get(UUID_1));
     }
 
     @Test (expected = NotExistStorageException.class)
     public void updateNotExist() {
-        Resume nonExistentResume = new Resume();
+        Resume nonExistentResume = new Resume("dummy");
         storage.update(nonExistentResume);
     }
 
