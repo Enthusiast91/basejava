@@ -26,10 +26,4 @@ public class ArrayStorage extends AbstractArrayStorage {
     protected void insertElement(int index, Resume resume) {
         storage[size] = resume;
     }
-
-    @Override
-    protected Resume doGet(Object searchKey) {
-        Integer index = (Integer) searchKey;
-        return storage[index];
-    }
 }
