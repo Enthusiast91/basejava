@@ -1,14 +1,14 @@
 package com.enthusiast91.webapp;
 
 import com.enthusiast91.webapp.model.Resume;
-import com.enthusiast91.webapp.storage.MapUuidStorage;
+import com.enthusiast91.webapp.storage.SortedArrayStorage;
 import com.enthusiast91.webapp.storage.Storage;
 
 /**
  * Test for your com.enthusiast91.webapp.storage.ArrayStorage implementation
  */
 public class MainTestStorage {
-    private static final Storage ARRAY_STORAGE = new MapUuidStorage();
+    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
@@ -58,4 +58,6 @@ public class MainTestStorage {
             System.out.println(resume);
         }
     }
+
+
 }

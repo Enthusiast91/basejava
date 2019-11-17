@@ -4,7 +4,7 @@ import com.enthusiast91.webapp.model.Resume;
 
 import java.util.*;
 
-public abstract class AbstractMapStorage extends AbstractStorage {
+public abstract class AbstractMapStorage<SK> extends AbstractStorage<SK> {
     protected final Map<String, Resume> storage = new HashMap<>();
 
     public void clear() {
@@ -12,7 +12,7 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> getAll() {
+    protected List<Resume> doGetAll() {
         return new ArrayList<>(storage.values());
     }
 
@@ -22,12 +22,12 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
+    protected void doSave(SK searchKey, Resume resume) {
         storage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume resume) {
+    protected void doUpdate(SK searchKey, Resume resume) {
         storage.put(resume.getUuid(), resume);
     }
 }
