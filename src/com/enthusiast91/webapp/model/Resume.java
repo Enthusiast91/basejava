@@ -1,7 +1,6 @@
 package com.enthusiast91.webapp.model;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
@@ -10,6 +9,8 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private final String uuid;
     private final String fullName;
+    private final HashMap<ContactType, Contact> contacts = new HashMap<>();
+    private final HashMap<SectionType, Section> sections = new HashMap<>();
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -28,6 +29,14 @@ public class Resume implements Comparable<Resume> {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public void addSection(Section section) {
+        sections.put(section.type, section);
+    }
+
+    public void addContact(Contact contact) {
+        contacts.put(contact.type, contact);
     }
 
     @Override
